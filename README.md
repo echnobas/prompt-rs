@@ -21,4 +21,4 @@ fn main() {
 - Setting a maximum length for the user input
 - Setting a prompt for the user input
 - Few dependencies allow for lightning fast compile times
-- Reads stdin via _getch on windows and termios on macos via the getch crate
+- Reads stdin via _getch on windows and termios on unix via the getch crate
