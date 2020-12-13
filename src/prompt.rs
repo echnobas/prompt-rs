@@ -81,7 +81,7 @@ impl<'prompt> Prompt<'prompt> {
                         (self.on_cancel)();
                         return Err(PromptError::CancelError);
                     }
-                    if pos >= self.max_length && pos != 0 { // default is 0
+                    if pos >= self.max_length && self.max_length != 0 { // default is 0
                         continue;
                     }
                     pos += 1;
