@@ -2,6 +2,11 @@ use crate::errors::PromptError;
 use getch::Getch;
 use std::io::Write;
 
+const NEWLINE: u8 = 0xA;
+const CARRIAGE_RETURN: u8 = 0xD;
+const BACKSPACE: u8 = 0x08;
+const DELETE: u8 = 0x7F;
+
 pub struct Prompt<'prompt> {
     max_length: u32,
     hidden: bool,
@@ -65,9 +70,9 @@ impl<'prompt> Prompt<'prompt> {
         loop {
             std::io::stdout().flush()?;
             let c: char = Getch::new().getch()? as char;
-            match c {
-                '\n' | '\r' => break,
-                '\x08' => {
+            match c as u8 {
+                NEWLINE | CARRIAGE_RETURN => break,
+                BACKSPACE | DELETE => {
                     if pos == 0 {
                         continue;
                     }
@@ -81,7 +86,7 @@ impl<'prompt> Prompt<'prompt> {
                         (self.on_cancel)();
                         return Err(PromptError::CancelError);
                     }
-                    if pos >= self.max_length && self.max_length != 0 { // default is 0
+                    if pos >= self.max_length && self.max_length != 0 {
                         continue;
                     }
                     pos += 1;
