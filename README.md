@@ -9,7 +9,7 @@ fn main() {
         "Hey there {}!",
         Prompt::new()
             .set_hidden(true)
-            .set_prompt("Enter name noob\n> ")
+            .set_prompt("Enter name\n> ")
             .execute()
             .unwrap()
     );
